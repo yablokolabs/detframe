@@ -6,7 +6,7 @@
 
 namespace df {
 
-void draw_tape(Renderer& r, Rect bounds, const TapeConfig& cfg, int value) noexcept {
+void draw_tape(Renderer &r, Rect bounds, const TapeConfig &cfg, int value) noexcept {
     // Background
     r.fill_rect(bounds, cfg.bg);
 

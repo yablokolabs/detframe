@@ -10,7 +10,7 @@
 namespace df {
 
 class Framebuffer {
-public:
+  public:
     Framebuffer(int width, int height) noexcept;
 
     /// Clear entire buffer to a color.
@@ -29,8 +29,8 @@ public:
     void fill_rect(Rect r, Color c) noexcept;
 
     /// Raw pixel data (RGBA8888, row-major).
-    [[nodiscard]] const std::uint8_t* data() const noexcept { return pixels_.data(); }
-    [[nodiscard]] std::uint8_t* data() noexcept { return pixels_.data(); }
+    [[nodiscard]] const std::uint8_t *data() const noexcept { return pixels_.data(); }
+    [[nodiscard]] std::uint8_t *data() noexcept { return pixels_.data(); }
 
     [[nodiscard]] int width() const noexcept { return width_; }
     [[nodiscard]] int height() const noexcept { return height_; }
@@ -40,12 +40,12 @@ public:
     [[nodiscard]] std::size_t size_bytes() const noexcept { return pixels_.size(); }
 
     /// Compare two framebuffers for bit-exact equality.
-    [[nodiscard]] bool equals(const Framebuffer& other) const noexcept;
+    [[nodiscard]] bool equals(const Framebuffer &other) const noexcept;
 
     /// Count differing pixels between two framebuffers.
-    [[nodiscard]] std::size_t diff_count(const Framebuffer& other) const noexcept;
+    [[nodiscard]] std::size_t diff_count(const Framebuffer &other) const noexcept;
 
-private:
+  private:
     int width_, height_;
     std::vector<std::uint8_t> pixels_; // RGBA8888
 };

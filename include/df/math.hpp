@@ -3,8 +3,8 @@
 /// Fixed-point and floating-point math for deterministic rendering.
 /// Q16.16 fixed-point ensures bit-exact results across compilers.
 
-#include <cstdint>
 #include <cmath>
+#include <cstdint>
 
 namespace df {
 
@@ -28,12 +28,10 @@ struct Fixed {
     constexpr Fixed operator+(Fixed o) const noexcept { return Fixed{raw + o.raw}; }
     constexpr Fixed operator-(Fixed o) const noexcept { return Fixed{raw - o.raw}; }
     constexpr Fixed operator*(Fixed o) const noexcept {
-        return Fixed{static_cast<std::int32_t>(
-            (static_cast<std::int64_t>(raw) * o.raw) >> 16)};
+        return Fixed{static_cast<std::int32_t>((static_cast<std::int64_t>(raw) * o.raw) >> 16)};
     }
     constexpr Fixed operator/(Fixed o) const noexcept {
-        return Fixed{static_cast<std::int32_t>(
-            (static_cast<std::int64_t>(raw) << 16) / o.raw)};
+        return Fixed{static_cast<std::int32_t>((static_cast<std::int64_t>(raw) << 16) / o.raw)};
     }
     constexpr bool operator<(Fixed o) const noexcept { return raw < o.raw; }
     constexpr bool operator>(Fixed o) const noexcept { return raw > o.raw; }

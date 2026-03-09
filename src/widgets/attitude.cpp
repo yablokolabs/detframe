@@ -6,7 +6,7 @@
 
 namespace df {
 
-void draw_attitude(Renderer& r, Rect bounds, const AttitudeState& state) noexcept {
+void draw_attitude(Renderer &r, Rect bounds, const AttitudeState &state) noexcept {
     auto cx = bounds.x + bounds.w / 2;
     auto cy = bounds.y + bounds.h / 2;
 
@@ -19,8 +19,8 @@ void draw_attitude(Renderer& r, Rect bounds, const AttitudeState& state) noexcep
                 Color::rgba(30, 80, 180));
     // Ground
     if (horizon_y < bounds.y + bounds.h) {
-        r.fill_rect({bounds.x, clamp(horizon_y, bounds.y, bounds.y + bounds.h),
-                     bounds.w, bounds.y + bounds.h - clamp(horizon_y, bounds.y, bounds.y + bounds.h)},
+        r.fill_rect({bounds.x, clamp(horizon_y, bounds.y, bounds.y + bounds.h), bounds.w,
+                     bounds.y + bounds.h - clamp(horizon_y, bounds.y, bounds.y + bounds.h)},
                     Color::rgba(120, 80, 30));
     }
 

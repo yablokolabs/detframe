@@ -4,8 +4,8 @@
 
 namespace df {
 
-bool write_ppm(const Framebuffer& fb, const char* path) noexcept {
-    FILE* f = std::fopen(path, "wb");
+bool write_ppm(const Framebuffer &fb, const char *path) noexcept {
+    FILE *f = std::fopen(path, "wb");
     if (!f) return false;
 
     std::fprintf(f, "P6\n%d %d\n255\n", fb.width(), fb.height());
@@ -23,9 +23,9 @@ bool write_ppm(const Framebuffer& fb, const char* path) noexcept {
     return true;
 }
 
-bool compare_ppm(const char* path_a, const char* path_b) noexcept {
-    FILE* fa = std::fopen(path_a, "rb");
-    FILE* fb = std::fopen(path_b, "rb");
+bool compare_ppm(const char *path_a, const char *path_b) noexcept {
+    FILE *fa = std::fopen(path_a, "rb");
+    FILE *fb = std::fopen(path_b, "rb");
     if (!fa || !fb) {
         if (fa) std::fclose(fa);
         if (fb) std::fclose(fb);
@@ -35,7 +35,10 @@ bool compare_ppm(const char* path_a, const char* path_b) noexcept {
     bool equal = true;
     int ca, cb;
     while ((ca = std::fgetc(fa)) != EOF && (cb = std::fgetc(fb)) != EOF) {
-        if (ca != cb) { equal = false; break; }
+        if (ca != cb) {
+            equal = false;
+            break;
+        }
     }
     // Check both reached EOF
     if (equal) {

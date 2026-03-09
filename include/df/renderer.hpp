@@ -9,8 +9,8 @@
 namespace df {
 
 class Renderer {
-public:
-    explicit Renderer(Framebuffer& fb) noexcept : fb_(fb) {}
+  public:
+    explicit Renderer(Framebuffer &fb) noexcept : fb_(fb) {}
 
     /// Draw a horizontal line.
     void hline(int x0, int x1, int y, Color c) noexcept;
@@ -43,10 +43,10 @@ public:
     void arc(int cx, int cy, int radius, int start_deg, int end_deg, Color c) noexcept;
 
     /// Get underlying framebuffer.
-    [[nodiscard]] Framebuffer& framebuffer() noexcept { return fb_; }
+    [[nodiscard]] Framebuffer &framebuffer() noexcept { return fb_; }
 
-private:
-    Framebuffer& fb_;
+  private:
+    Framebuffer &fb_;
 };
 
 } // namespace df

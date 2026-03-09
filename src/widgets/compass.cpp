@@ -6,7 +6,7 @@
 
 namespace df {
 
-void draw_compass(Renderer& r, Rect bounds, int heading, Color fg, Color bg) noexcept {
+void draw_compass(Renderer &r, Rect bounds, int heading, Color fg, Color bg) noexcept {
     r.fill_rect(bounds, bg);
 
     int cx = bounds.x + bounds.w / 2;
@@ -29,11 +29,15 @@ void draw_compass(Renderer& r, Rect bounds, int heading, Color fg, Color bg) noe
             r.vline(px, y + 2, y + 14, fg);
 
             // Cardinal/intercardinal labels
-            const char* label = nullptr;
-            if (deg == 0)   label = "N";
-            else if (deg == 90)  label = "E";
-            else if (deg == 180) label = "S";
-            else if (deg == 270) label = "W";
+            const char *label = nullptr;
+            if (deg == 0)
+                label = "N";
+            else if (deg == 90)
+                label = "E";
+            else if (deg == 180)
+                label = "S";
+            else if (deg == 270)
+                label = "W";
             else {
                 static char buf[4];
                 std::snprintf(buf, sizeof(buf), "%d", deg / 10);
@@ -52,8 +56,7 @@ void draw_compass(Renderer& r, Rect bounds, int heading, Color fg, Color bg) noe
     }
 
     // Current heading pointer (triangle at center)
-    r.fill_triangle(cx, y + bounds.h - 2, cx - 5, y + bounds.h - 10,
-                    cx + 5, y + bounds.h - 10, fg);
+    r.fill_triangle(cx, y + bounds.h - 2, cx - 5, y + bounds.h - 10, cx + 5, y + bounds.h - 10, fg);
 
     // Current heading readout
     {

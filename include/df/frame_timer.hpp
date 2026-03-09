@@ -8,7 +8,7 @@
 namespace df {
 
 class FrameTimer {
-public:
+  public:
     /// Create timer with target frame period in milliseconds.
     explicit FrameTimer(int target_ms) noexcept;
 
@@ -33,7 +33,7 @@ public:
     /// Total overruns.
     [[nodiscard]] std::uint64_t overrun_count() const noexcept { return overrun_count_; }
 
-private:
+  private:
     std::int64_t target_ns_;
     std::int64_t frame_start_ns_;
     std::int64_t last_render_us_;

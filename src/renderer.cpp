@@ -28,8 +28,14 @@ void Renderer::line(int x0, int y0, int x1, int y1, Color c) noexcept {
         fb_.set_pixel(x0, y0, c);
         if (x0 == x1 && y0 == y1) break;
         int e2 = 2 * err;
-        if (e2 >= dy) { err += dy; x0 += sx; }
-        if (e2 <= dx) { err += dx; y0 += sy; }
+        if (e2 >= dy) {
+            err += dy;
+            x0 += sx;
+        }
+        if (e2 <= dx) {
+            err += dx;
+            y0 += sy;
+        }
     }
 }
 
@@ -57,9 +63,18 @@ void Renderer::fill_rect(Rect r, Color c) noexcept {
 
 void Renderer::fill_triangle(int x0, int y0, int x1, int y1, int x2, int y2, Color c) noexcept {
     // Sort vertices by y
-    if (y0 > y1) { std::swap(x0, x1); std::swap(y0, y1); }
-    if (y0 > y2) { std::swap(x0, x2); std::swap(y0, y2); }
-    if (y1 > y2) { std::swap(x1, x2); std::swap(y1, y2); }
+    if (y0 > y1) {
+        std::swap(x0, x1);
+        std::swap(y0, y1);
+    }
+    if (y0 > y2) {
+        std::swap(x0, x2);
+        std::swap(y0, y2);
+    }
+    if (y1 > y2) {
+        std::swap(x1, x2);
+        std::swap(y1, y2);
+    }
 
     if (y2 == y0) return; // degenerate
 
@@ -69,11 +84,15 @@ void Renderer::fill_triangle(int x0, int y0, int x1, int y1, int x2, int y2, Col
         // Edge 0→2 is always active
         xa = x0 + (x2 - x0) * (y - y0) / (y2 - y0);
         if (y < y1) {
-            if (y1 == y0) xb = x0;
-            else xb = x0 + (x1 - x0) * (y - y0) / (y1 - y0);
+            if (y1 == y0)
+                xb = x0;
+            else
+                xb = x0 + (x1 - x0) * (y - y0) / (y1 - y0);
         } else {
-            if (y2 == y1) xb = x1;
-            else xb = x1 + (x2 - x1) * (y - y1) / (y2 - y1);
+            if (y2 == y1)
+                xb = x1;
+            else
+                xb = x1 + (x2 - x1) * (y - y1) / (y2 - y1);
         }
         hline(std::min(xa, xb), std::max(xa, xb), y, c);
     }

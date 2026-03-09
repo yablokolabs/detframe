@@ -3,20 +3,20 @@
 #include "df/framebuffer.hpp"
 #include "df/renderer.hpp"
 #include "df/widgets/attitude.hpp"
-#include "df/widgets/tape.hpp"
 #include "df/widgets/compass.hpp"
+#include "df/widgets/tape.hpp"
 #include "df/widgets/text.hpp"
 #include <cstdio>
 
-static void render_pfd_frame(df::Renderer& r, int w, int h, int frame) {
-    auto& fb = r.framebuffer();
+static void render_pfd_frame(df::Renderer &r, int w, int h, int frame) {
+    auto &fb = r.framebuffer();
     fb.clear(df::Color::rgba(10, 10, 15));
 
     int pitch = (frame / 3) % 40 - 20;
-    int roll  = (frame / 2) % 60 - 30;
+    int roll = (frame / 2) % 60 - 30;
     int airspeed = 220 + (frame % 40) - 20;
     int altitude = 12000 + (frame % 100) * 10;
-    int heading  = (frame * 1) % 360;
+    int heading = (frame * 1) % 360;
 
     int att_w = w * 40 / 100;
     int att_h = h * 70 / 100;
@@ -28,21 +28,29 @@ static void render_pfd_frame(df::Renderer& r, int w, int h, int frame) {
     draw_attitude(r, {att_x, att_y, att_w, att_h}, att);
 
     df::TapeConfig spd{};
-    spd.min_value = 0; spd.max_value = 500;
-    spd.major_tick = 20; spd.minor_tick = 10;
-    spd.pixels_per_unit = 3; spd.left_aligned = true;
-    spd.fg = df::Color::green(); spd.bg = df::Color::rgba(10, 10, 10);
+    spd.min_value = 0;
+    spd.max_value = 500;
+    spd.major_tick = 20;
+    spd.minor_tick = 10;
+    spd.pixels_per_unit = 3;
+    spd.left_aligned = true;
+    spd.fg = df::Color::green();
+    spd.bg = df::Color::rgba(10, 10, 10);
     draw_tape(r, {att_x - tape_w - 10, att_y, tape_w, att_h}, spd, airspeed);
 
     df::TapeConfig alt{};
-    alt.min_value = 0; alt.max_value = 50000;
-    alt.major_tick = 500; alt.minor_tick = 100;
-    alt.pixels_per_unit = 1; alt.left_aligned = false;
-    alt.fg = df::Color::green(); alt.bg = df::Color::rgba(10, 10, 10);
+    alt.min_value = 0;
+    alt.max_value = 50000;
+    alt.major_tick = 500;
+    alt.minor_tick = 100;
+    alt.pixels_per_unit = 1;
+    alt.left_aligned = false;
+    alt.fg = df::Color::green();
+    alt.bg = df::Color::rgba(10, 10, 10);
     draw_tape(r, {att_x + att_w + 10, att_y, tape_w, att_h}, alt, altitude);
 
-    draw_compass(r, {att_x, 2, att_w, 36}, heading,
-                 df::Color::green(), df::Color::rgba(10, 10, 10));
+    draw_compass(r, {att_x, 2, att_w, 36}, heading, df::Color::green(),
+                 df::Color::rgba(10, 10, 10));
 
     draw_text(r, 4, 2, "DETFRAME PFD", df::Color::rgba(100, 100, 100), 1);
 }

@@ -27,7 +27,7 @@ void Scene::add_triangle(int x0, int y0, int x1, int y1, int x2, int y2, Color c
     elements_.push_back({ElementType::Triangle, x0, y0, x1, y1, x2, y2, 0, c, nullptr, 0});
 }
 
-void Scene::add_text(int x, int y, const char* text, Color c, int scale) noexcept {
+void Scene::add_text(int x, int y, const char *text, Color c, int scale) noexcept {
     elements_.push_back({ElementType::Text, x, y, 0, 0, 0, 0, 0, c, text, scale});
 }
 

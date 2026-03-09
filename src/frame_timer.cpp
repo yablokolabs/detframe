@@ -11,15 +11,15 @@ static std::int64_t now_ns() noexcept {
 
 static void sleep_until(std::int64_t deadline_ns) noexcept {
     struct timespec ts;
-    ts.tv_sec  = deadline_ns / 1'000'000'000LL;
+    ts.tv_sec = deadline_ns / 1'000'000'000LL;
     ts.tv_nsec = deadline_ns % 1'000'000'000LL;
     clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, nullptr);
 }
 
 FrameTimer::FrameTimer(int target_ms) noexcept
-    : target_ns_(static_cast<std::int64_t>(target_ms) * 1'000'000LL),
-      frame_start_ns_(0), last_render_us_(0), worst_render_us_(0),
-      frame_count_(0), overrun_count_(0), last_overrun_(false) {}
+    : target_ns_(static_cast<std::int64_t>(target_ms) * 1'000'000LL), frame_start_ns_(0),
+      last_render_us_(0), worst_render_us_(0), frame_count_(0), overrun_count_(0),
+      last_overrun_(false) {}
 
 std::uint64_t FrameTimer::begin_frame() noexcept {
     frame_start_ns_ = now_ns();

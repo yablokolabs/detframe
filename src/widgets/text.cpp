@@ -76,25 +76,23 @@ static const std::uint8_t font_8x8[95][8] = {
 };
 // clang-format on
 
-static void draw_char(Renderer& r, int px, int py, char ch, Color c, int scale) noexcept {
+static void draw_char(Renderer &r, int px, int py, char ch, Color c, int scale) noexcept {
     int idx = static_cast<int>(ch) - 32;
     if (idx < 0 || idx >= 95) return;
 
-    const auto& glyph = font_8x8[idx];
+    const auto &glyph = font_8x8[idx];
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (glyph[row] & (0x80 >> col)) {
                 for (int sy = 0; sy < scale; ++sy)
                     for (int sx = 0; sx < scale; ++sx)
-                        r.framebuffer().set_pixel(
-                            px + col * scale + sx,
-                            py + row * scale + sy, c);
+                        r.framebuffer().set_pixel(px + col * scale + sx, py + row * scale + sy, c);
             }
         }
     }
 }
 
-void draw_text(Renderer& r, int x, int y, const char* text, Color c, int scale) noexcept {
+void draw_text(Renderer &r, int x, int y, const char *text, Color c, int scale) noexcept {
     while (*text) {
         draw_char(r, x, y, *text, c, scale);
         x += 8 * scale;
@@ -102,17 +100,17 @@ void draw_text(Renderer& r, int x, int y, const char* text, Color c, int scale) 
     }
 }
 
-void draw_text_right(Renderer& r, int x, int y, const char* text, Color c, int scale) noexcept {
+void draw_text_right(Renderer &r, int x, int y, const char *text, Color c, int scale) noexcept {
     int w = text_width(text, scale);
     draw_text(r, x - w, y, text, c, scale);
 }
 
-void draw_text_center(Renderer& r, int x, int y, const char* text, Color c, int scale) noexcept {
+void draw_text_center(Renderer &r, int x, int y, const char *text, Color c, int scale) noexcept {
     int w = text_width(text, scale);
     draw_text(r, x - w / 2, y, text, c, scale);
 }
 
-int text_width(const char* text, int scale) noexcept {
+int text_width(const char *text, int scale) noexcept {
     return static_cast<int>(std::strlen(text)) * 8 * scale;
 }
 
