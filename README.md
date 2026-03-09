@@ -2,13 +2,13 @@
 
 **Deterministic rendering pipeline for avionics display prototyping.**
 
-Software rasterizer with fixed-point math, PFD widgets, and frame-level determinism verification. Every frame rendered with the same inputs produces bit-identical output — the foundational property for display system certification.
+Software rasterizer with fixed-point math, PFD widgets, and frame-level determinism verification. Designed for reproducible pixel output under controlled build and runtime conditions.
 
 ## What This Is
 
 A rendering toolkit for prototyping avionics displays where determinism is non-negotiable:
 
-- **Bit-exact rendering** — same inputs = identical pixels, every time, every platform
+- **Reproducible rendering** — same inputs produce identical pixels under the same build/runtime conditions
 - **~437μs per PFD frame** (640×480) — 2.6% of 60fps budget
 - **Zero floating-point in rasterization** — integer Bresenham, midpoint circle, scanline fill
 - **Fixed-point math** — Q16.16 for trig (lookup table sin/cos, no libm in hot path)
