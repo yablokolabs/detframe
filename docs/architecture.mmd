@@ -1,0 +1,8 @@
+flowchart LR
+    A["Scene State / Flight Data"] --> B["Fixed-point Transform Layer"]
+    B --> C["Deterministic Rasterizer"]
+    C --> D["Avionics Widgets\nAttitude / Tapes / Compass"]
+    D --> E["Framebuffer"]
+    E --> F["Replay / Image Output"]
+
+    C --> G["Frame Budget Check"]

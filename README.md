@@ -84,6 +84,8 @@ Built-in 8×8 bitmap font (ASCII 32-126). No system fonts, no FreeType, no float
 
 ## Architecture
 
+![detframe architecture](docs/architecture.svg)
+
 ```
 ┌──────────────────────────────────────────────┐
 │  Scene / Widgets                             │

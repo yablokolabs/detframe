@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#666"/>
+    </marker>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <text x="450" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#b71c1c">detframe — Rendering Pipeline</text>
+
+  <!-- Stage 1: Scene State -->
+  <rect x="20" y="55" width="130" height="80" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="85" y="80" text-anchor="middle" font-size="10" font-weight="600" fill="#b71c1c">Scene State</text>
+  <text x="85" y="98" text-anchor="middle" font-size="9" fill="#666">Flight data</text>
+  <text x="85" y="112" text-anchor="middle" font-size="9" fill="#666">Pitch · Roll</text>
+  <text x="85" y="126" text-anchor="middle" font-size="9" fill="#666">Heading · Speed</text>
+
+  <!-- Stage 2: Fixed-point Transform -->
+  <rect x="175" y="55" width="130" height="80" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1" filter="url(#shadow)"/>
+  <text x="240" y="80" text-anchor="middle" font-size="10" font-weight="600" fill="#333">Fixed-point</text>
+  <text x="240" y="95" text-anchor="middle" font-size="10" font-weight="600" fill="#333">Transform</text>
+  <text x="240" y="115" text-anchor="middle" font-size="9" fill="#666">Q16.16 math</text>
+  <text x="240" y="129" text-anchor="middle" font-size="8" fill="#888">Lookup-table sin/cos</text>
+
+  <!-- Stage 3: Rasterizer -->
+  <rect x="330" y="55" width="150" height="80" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1" filter="url(#shadow)"/>
+  <text x="405" y="78" text-anchor="middle" font-size="10" font-weight="600" fill="#333">Deterministic</text>
+  <text x="405" y="93" text-anchor="middle" font-size="10" font-weight="600" fill="#333">Rasterizer</text>
+  <text x="405" y="113" text-anchor="middle" font-size="8" fill="#666">Bresenham · Midpoint</text>
+  <text x="405" y="126" text-anchor="middle" font-size="8" fill="#666">Scanline · Integer only</text>
+
+  <!-- Stage 4: Widgets -->
+  <rect x="505" y="55" width="150" height="80" rx="6" fill="#ffcdd2" stroke="#c62828" stroke-width="1" filter="url(#shadow)"/>
+  <text x="580" y="78" text-anchor="middle" font-size="10" font-weight="600" fill="#333">PFD Widgets</text>
+  <text x="580" y="98" text-anchor="middle" font-size="9" fill="#666">Attitude indicator</text>
+  <text x="580" y="112" text-anchor="middle" font-size="9" fill="#666">Airspeed / Altitude</text>
+  <text x="580" y="126" text-anchor="middle" font-size="9" fill="#666">Compass · 8×8 Font</text>
+
+  <!-- Stage 5: Framebuffer -->
+  <rect x="680" y="55" width="200" height="80" rx="6" fill="#fce4ec" stroke="#c62828" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="780" y="78" text-anchor="middle" font-size="10" font-weight="600" fill="#b71c1c">Framebuffer</text>
+  <text x="780" y="98" text-anchor="middle" font-size="9" fill="#666">RGBA8888 · Row-major</text>
+  <text x="780" y="112" text-anchor="middle" font-size="9" fill="#666">equals() · diff_count()</text>
+  <text x="780" y="126" text-anchor="middle" font-size="8" fill="#888">Reproducible output</text>
+
+  <!-- Arrows -->
+  <line x1="150" y1="95" x2="175" y2="95" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="305" y1="95" x2="330" y2="95" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="480" y1="95" x2="505" y2="95" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="655" y1="95" x2="680" y2="95" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Outputs -->
+  <rect x="680" y="165" width="200" height="50" rx="6" fill="#fff" stroke="#c62828" stroke-width="1" stroke-dasharray="4"/>
+  <text x="780" y="188" text-anchor="middle" font-size="10" font-weight="600" fill="#b71c1c">PPM Capture / Replay</text>
+  <text x="780" y="203" text-anchor="middle" font-size="9" fill="#888">P6 binary · frame_diff.py</text>
+
+  <line x1="780" y1="135" x2="780" y2="165" stroke="#c62828" stroke-width="1" marker-end="url(#arrow)" stroke-dasharray="3"/>
+
+  <!-- Frame Timer (side) -->
+  <rect x="20" y="165" width="200" height="50" rx="6" fill="#fff8e1" stroke="#f9a825" stroke-width="1" filter="url(#shadow)"/>
+  <text x="120" y="188" text-anchor="middle" font-size="10" font-weight="600" fill="#f57f17">Frame Timer</text>
+  <text x="120" y="203" text-anchor="middle" font-size="9" fill="#888">CLOCK_MONOTONIC · Budget check</text>
+
+  <line x1="120" y1="165" x2="120" y2="135" stroke="#f9a825" stroke-width="1" marker-end="url(#arrow)" stroke-dasharray="4"/>
+
+  <!-- Compositor (side) -->
+  <rect x="250" y="165" width="200" height="50" rx="6" fill="#fff8e1" stroke="#f9a825" stroke-width="1" filter="url(#shadow)"/>
+  <text x="350" y="188" text-anchor="middle" font-size="10" font-weight="600" fill="#f57f17">Layer Compositor</text>
+  <text x="350" y="203" text-anchor="middle" font-size="9" fill="#888">Alpha blending · Multi-layer</text>
+
+  <line x1="350" y1="165" x2="405" y2="135" stroke="#f9a825" stroke-width="1" marker-end="url(#arrow)" stroke-dasharray="4"/>
+
+  <!-- Footer -->
+  <text x="450" y="255" text-anchor="middle" font-size="9" fill="#adb5bd" font-style="italic">No floating-point in render path · No GPU · Software-only · Reproducible under controlled build/runtime · Apache-2.0</text>
+</svg>
